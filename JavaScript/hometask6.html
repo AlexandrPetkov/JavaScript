@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            asldkalsk
+        </title>
+    </head>
+    <body>
+        <div>
+            <a></a>
+        </div>
+        <a></a>
+        <div></div>
+    </body>
+    <script>
+        function f(x, y) {
+            if(x.nodeType == 1){
+                console.log(y + x.nodeName)
+                if (x.children != 0) {
+                    for (let index = 0; index < x.children.length; index++) {
+                        f(x.children[index], y + "  ");
+                    }
+                }
+            }
+
+        }
+    f(document.body, "")
+    </script>
+</html>
