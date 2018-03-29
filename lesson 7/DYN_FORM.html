@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>D3</title>
+</head>
+
+<body>
+    <script>
+        function fillForm(form, array) {
+            for (let i = 0; i < array.length; i++) {
+                var div = document.createElement("div");
+
+                var label = document.createElement("a");
+                label.textContent = array[i].label;
+
+                var element = document.createElement("input");
+                element.type = array[i].kind;
+                element.name = array[i].name;
+                var variants = array[i].variants
+                if (variants.lenght != 0) {
+                    variants.forEach(element => {
+                        element.
+                    });
+                }
+
+                div.appendChild(label);
+                div.appendChild(element);
+
+                form.appendChild(div);
+
+            }
+        }
+
+        var formDef1 =
+            [
+                { label: 'Название сайта:', kind: 'longtext', name: 'sitename' },
+                { label: 'URL сайта:', kind: 'longtext', name: 'siteurl' },
+                { label: 'Посетителей в сутки:', kind: 'number', name: 'visitors' },
+                { label: 'E-mail для связи:', kind: 'shorttext', name: 'email' },
+                {
+                    label: 'Рубрика каталога:', kind: 'combo', name: 'division',
+                    variants: [{ text: 'здоровье', value: 1 }, { text: 'домашний уют', value: 2 }, { text: 'бытовая техника', value: 3 }]
+                },
+                {
+                    label: 'Размещение:', kind: 'radio', name: 'payment',
+                    variants: [{ text: 'бесплатное', value: 1 }, { text: 'платное', value: 2 }, { text: 'VIP', value: 3 }]
+                },
+                { label: 'Разрешить отзывы:', kind: 'check', name: 'votes' },
+                { label: 'Описание сайта:', kind: 'memo', name: 'description' },
+                { label: 'Опубликовать:', kind: 'submit' },
+            ];
+
+        var formDef2 =
+            [
+                { label: 'Фамилия:', kind: 'longtext', name: 'lastname' },
+                { label: 'Имя:', kind: 'longtext', name: 'firstname' },
+                { label: 'Отчество:', kind: 'longtext', name: 'secondname' },
+                { label: 'Возраст:', kind: 'number', name: 'age' },
+                { label: 'Зарегистрироваться:', kind: 'submit' },
+            ];
+
+        fillForm(document.body, formDef1);
+        fillForm(document.body, formDef2);
+    </script>
+</body>
+
+</html>
