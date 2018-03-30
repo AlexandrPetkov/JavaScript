@@ -7,31 +7,6 @@
 
 <body>
     <script>
-        function fillForm(form, array) {
-            for (let i = 0; i < array.length; i++) {
-                var div = document.createElement("div");
-
-                var label = document.createElement("a");
-                label.textContent = array[i].label;
-
-                var element = document.createElement("input");
-                element.type = array[i].kind;
-                element.name = array[i].name;
-                var variants = array[i].variants
-                if (variants.lenght != 0) {
-                    variants.forEach(element => {
-                        element.
-                    });
-                }
-
-                div.appendChild(label);
-                div.appendChild(element);
-
-                form.appendChild(div);
-
-            }
-        }
-
         var formDef1 =
             [
                 { label: 'Название сайта:', kind: 'longtext', name: 'sitename' },
@@ -51,6 +26,7 @@
                 { label: 'Опубликовать:', kind: 'submit' },
             ];
 
+
         var formDef2 =
             [
                 { label: 'Фамилия:', kind: 'longtext', name: 'lastname' },
@@ -60,8 +36,135 @@
                 { label: 'Зарегистрироваться:', kind: 'submit' },
             ];
 
-        fillForm(document.body, formDef1);
-        fillForm(document.body, formDef2);
+        var form1 = document.createElement("form");
+        form1.action = "http://fe.it-academy.by/TestForm.php";
+        document.body.appendChild(fillForm(form1, formDef1));
+
+        document.body.appendChild(createHr());
+
+        var form2 = document.createElement("form");
+        form2.action = "http://fe.it-academy.by/TestForm.php";
+        document.body.appendChild(fillForm(form2, formDef2));
+
+
+        function fillForm(form, array) {
+
+            for (let i = 0; i < array.length; i++) {
+                var div = document.createElement("div");
+                div.appendChild(createLabel(array[i].label));
+                var element
+
+                switch (array[i].kind) {
+                    case "longtext":
+                    case "shorttext":
+                    case "number":
+                        element = createTextFiled(array[i].name);
+                        break;
+                    case "check":
+                        element = createCheckBox(array[i].name);
+                        break;
+                    case "combo":
+                        element = createCombo(array[i].name, array[i].variants);
+                        break;
+                    case "radio":
+                        element = createRadio(array[i].name, array[i].variants);
+                        break;
+                    case "memo":
+                        element = createTextarea(array[i].name);
+                        break;
+                    case "submit":
+                        element = createSubmit(array[i]);
+                        break;
+                }
+
+                div.appendChild(element);
+                form.appendChild(div);
+            }
+
+            return form;
+        }
+
+
+        function createSubmit(data) {
+            var submit = document.createElement("input");
+            submit.type = data.kind;
+            submit.name = data.name;
+            return submit;
+        }
+
+        function createCheckBox(fieldName) {
+            var checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.name = fieldName;
+            checkbox.checked = true;
+
+            return checkbox;
+        }
+
+
+        function createRadio(fieldName, variants) {
+            var a = document.createElement("a");
+            for (let i = 0; i < variants.length; i++) {
+                var element = document.createElement("input");
+                element.type = "radio";
+                element.name = fieldName
+                element.value = variants[i].value;
+
+                var span = document.createElement("span");
+                span.innerHTML = variants[i].text
+
+                a.appendChild(element);
+                a.appendChild(span);
+            }
+
+            return a;
+        }
+
+        function createCombo(fieldName, variants) {
+            var element = document.createElement("select");
+            element.name = fieldName;
+
+            for (let i = 0; i < variants.length; i++) {
+                var option = document.createElement("option");
+                option.value = variants[i].value;
+                option.innerHTML = variants[i].text;
+
+                element.options.add(option);
+            }
+
+            return element;
+        }
+
+
+        function createTextFiled(fieldName) {
+            var textField = document.createElement("input");
+            textField.type = "text";
+            textField.name = fieldName;
+
+            return textField;
+        }
+
+
+        function createTextarea(fieldName) {
+            var textarea = document.createElement("textarea");
+            textarea.name = fieldName;
+
+            return textarea;
+        }
+
+
+        function createLabel(labelName) {
+            var label = document.createElement("a");
+            label.textContent = labelName;
+
+            return label;
+        }
+
+        function createHr() {
+            var hr = document.createElement("hr");
+            hr.style.cssText = 'margin: 15px 0 15px 0';
+            return hr;
+        }
     </script>
 </body>
 
