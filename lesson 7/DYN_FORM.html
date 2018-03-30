@@ -48,17 +48,21 @@
 
 
         function fillForm(form, array) {
+            var table = document.createElement("table");
+            var tbody = document.createElement("tbody");
+
+            form.appendChild(table);
+            table.appendChild(tbody);
 
             for (let i = 0; i < array.length; i++) {
-                var div = document.createElement("div");
-                div.appendChild(createLabel(array[i].label));
-                var element
+                var tr = document.createElement("tr");
+                var element;
 
                 switch (array[i].kind) {
                     case "longtext":
                     case "shorttext":
                     case "number":
-                        element = createTextFiled(array[i].name);
+                        element = createTextFiled(array[i]);
                         break;
                     case "check":
                         element = createCheckBox(array[i].name);
@@ -70,15 +74,19 @@
                         element = createRadio(array[i].name, array[i].variants);
                         break;
                     case "memo":
-                        element = createTextarea(array[i].name);
+                        element = createTextarea(array[i]);
                         break;
                     case "submit":
                         element = createSubmit(array[i]);
                         break;
                 }
 
-                div.appendChild(element);
-                form.appendChild(div);
+                if (array[i].kind != "submit" && array[i].kind != "memo") {
+                    tr.appendChild(createLabel(array[i].label));
+                }
+                tr.appendChild(element);
+                
+                tbody.appendChild(tr);
             }
 
             return form;
@@ -88,7 +96,7 @@
         function createSubmit(data) {
             var submit = document.createElement("input");
             submit.type = data.kind;
-            submit.name = data.name;
+            submit.value = data.label.replace(':', '');
             return submit;
         }
 
@@ -103,7 +111,7 @@
 
 
         function createRadio(fieldName, variants) {
-            var a = document.createElement("a");
+            var td = document.createElement("td");
             for (let i = 0; i < variants.length; i++) {
                 var element = document.createElement("input");
                 element.type = "radio";
@@ -113,16 +121,17 @@
                 var span = document.createElement("span");
                 span.innerHTML = variants[i].text
 
-                a.appendChild(element);
-                a.appendChild(span);
+                td.appendChild(element);
+                td.appendChild(span);
             }
 
-            return a;
+            return td;
         }
 
         function createCombo(fieldName, variants) {
             var element = document.createElement("select");
             element.name = fieldName;
+            element.style.cssText = 'width: 204px; margin-left: 2px';
 
             for (let i = 0; i < variants.length; i++) {
                 var option = document.createElement("option");
@@ -136,26 +145,47 @@
         }
 
 
-        function createTextFiled(fieldName) {
+        function createTextFiled(data) {
             var textField = document.createElement("input");
             textField.type = "text";
-            textField.name = fieldName;
+            textField.name = data.name;
+            var style;
+            switch (data.kind) {
+                case "shorttext":
+                    style = 'width: 200px';
+                    break;
+                case "longtext":
+                    style = 'width: 453px';
+                    break;
+                case "number":
+                    style = 'width: 80px'
+                    break;
+            }
+            textField.style.cssText = style;
 
             return textField;
         }
 
 
-        function createTextarea(fieldName) {
-            var textarea = document.createElement("textarea");
-            textarea.name = fieldName;
+        function createTextarea(data) {
+            var td = document.createElement("td");
+            td.colSpan = 2;
+            td.innerHTML = data.label;
+            td.appendChild(document.createElement("br"))
 
-            return textarea;
+            var textarea = document.createElement("textarea");
+            textarea.name = data.name;
+            textarea.style.cssText = 'width: 608px; height: 50px';
+
+            td.appendChild(textarea);
+
+            return td;
         }
 
 
         function createLabel(labelName) {
-            var label = document.createElement("a");
-            label.textContent = labelName;
+            var label = document.createElement("td");
+            label.innerHTML = labelName;
 
             return label;
         }
