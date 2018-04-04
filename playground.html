@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body style="height: 100vx">
+    <div id="1" onmousedown="startDrag(event)" onmousemove="move(event)" onmouseup="endDrag(event)" style="width:200px; height:200px; position:absolute; background: yellow">
+
+    </div>
+    <script>
+        let block;
+        let blockX;
+        let blockY;
+        let cursorX;
+        let cursorY;
+        let isPressed = false;
+
+        function startDrag(event) {
+                isPressed = true;
+                block = event.target;
+                var rect = block.getBoundingClientRect();
+                blockX = rect.x;
+                blockY = rect.y;
+                cursorX = event.screenX;
+                cursorY = event.screenY;
+                event.preventDefault;
+        }
+
+        function move(event) {
+            if (isPressed) {
+            block.style.left = (event.screenX - cursorX) + "px";
+            blockX = event.screenX;
+            block.style.top = (event.screenY - cursorY)  + "px";
+            blockY = event.screenY;
+            console.log(block.style.left + " : " +  block.style.top);
+            }
+            event.preventDefault;
+        }
+
+        function endDrag(event) {
+            isPressed = false;
+            block = null;
+            event.preventDefault;
+        }
+
+        function enter() {
+
+        }
+    </script>
+</body>
+
+</html>
