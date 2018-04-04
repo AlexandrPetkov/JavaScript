@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>valid form</title>
+</head>
+<body>
+    <form>
+    <select onclick="f()">
+        <option value="A" selected>A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+        <option value="D">D</option>
+    </select>
+</form>
+    <script>
+        function f () {
+        var sel= document.getElementsByTagName("select")[0];
+        sel.value = "C";
+        
+        }
+    </script>
+</body>
+</html>
