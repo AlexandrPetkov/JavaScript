@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type=text id=BC value=10>
+    <input type=button value='Добавить' onclick='add()'>
+    <input type=button value='Поменять' onclick='change()'>
+    <div id=IField style='position: relative;
+        border: solid red 1px; width: 400px; height: 400px'>
+    </div>
+
+    <script>
+
+        "use strict";
+
+        function add() {
+            var field = document.getElementById('IField');
+            var ballsCount = document.getElementById('BC').value;
+            for (var b = 0; b < ballsCount; b++) {
+                var ball = document.createElement('img');
+                ball.src = 'http://fe.it-academy.by/Examples/ball3.png'
+                ball.style.position = 'absolute';
+                ball.style.left = Math.floor(Math.random() * 300) + "px";
+                ball.style.top = Math.floor(Math.random() * 300) + "px";
+                ball.onclick = function () { this.parentNode.replaceChild(createElement(this), this); }
+                field.appendChild(ball);
+            }
+        }
+
+
+        function change() {
+            var field = document.getElementById('IField');
+            for (let i = field.children.length - 1; i >= 0; i--) {
+                var oldElem = field.children[i];
+                field.replaceChild(createElement(oldElem), oldElem);
+            }
+        }
+
+        function createImage(oldElem) {
+            var ball = document.createElement('img');
+            ball.src = 'http://fe.it-academy.by/Examples/ball3.png'
+            ball.style.position = 'absolute';
+            ball.style.left = oldElem.style.left;
+            ball.style.top = oldElem.style.top;
+            ball.onclick = function () { this.parentNode.replaceChild(createDiv(this), this); }
+
+            return ball;
+        }
+
+
+        function createDiv(oldElem) {
+            var d = document.createElement('div');
+            d.style.position = 'absolute';
+            d.style.backgroundColor = 'yellow';
+            d.style.height = '100px';
+            d.style.width = '100px';
+            d.style.left = oldElem.style.left;
+            d.style.top = oldElem.style.top;
+            d.onclick = function () { this.parentNode.replaceChild(createImage(this), this); }
+            return d;
+        }
+
+
+        function createElement(oldElem) {
+            return oldElem.tagName == 'DIV' ? createImage(oldElem) : createDiv(oldElem);
+        }
+
+    </script>
+</body>
+
+</html>
