@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="1" style="width: 300px; height: 200px; border-color: red;  border-style: solid" ondrop="ballDrop(event)" ondragenter="ballDragEnter(event)" ondragleave="ballDragLeave(event)" ondragover="ballDragOver(event)"></div>
+    <div id="2" style="width: 300px; height: 200px; border-color: green;  border-style: solid" ondrop="ballDrop(event)" ondragenter="ballDragEnter(event)" ondragleave="ballDragLeave(event)" ondragover="ballDragOver(event)"></div>
+    <img src='http://fe.it-academy.by/Examples/ball3.png' ondragstart="ballDragStart(event)" />
+</body>
+
+    <script>
+        var ball;
+        var parent;
+        var oldStyles = {};
+
+        function ballDragStart(e) {
+            if (e.currentTarget.nodeName == 'IMG') {
+                parent = e.target.parentElement;
+                ball = parent.removeChild(ball);
+            } else {
+                ball = null;
+                parent = null;
+            }
+        }
+
+
+        function ballDragOver(e) {
+            e.preventDefault();
+        }
+
+
+        function ballDrop(e) {
+            e.preventDefault();
+
+            var target = e.currentTarget;
+            if (target.nodeName == 'DIV') {
+                target.appendChild(ball);
+            } else {
+                ball = null;
+            }
+        }
+
+
+        function ballDragEnter(e) {
+            e.preventDefault();
+            e.target.style.backgroundColor = "red";
+        }
+
+
+        function ballDragLeave(e) {
+            e.preventDefault();
+            e.target.style.backgroundColor = 'transparent';
+        }
+    </script>
+</html>
