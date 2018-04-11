@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <input id="text" onkeypress="enterEvent(event)">
+    <button onclick="search()">Search</button>
+    <div id="result"></div>
+    <script>
+        function search() {
+            var q = document.getElementById("text").value;
+            const url = `https://www.googleapis.com/customsearch/v1?key=AIzaSyD_Ohype9tWGlrwIPYxXaLjU1RNs0jSj6Y&cx=013913819485461920269:ioyqfcmbn9q&q=${q}`
+            $.get(url,
+                function (json) {
+                    var result = [];
+                    if (json.items) {
+                        for (let i = 0; i < json.items.length; i++) {
+                            result.push(`${json.items[i].htmlSnippet} <br> <a href='${json.items[i].link}'>${json.items[i].displayLink}</a>`);
+                        }
+                    }
+                    document.getElementById("result").innerHTML = result ? result.join('<br><hr><br>') : "Nothing was found";
+                });
+        }
+
+        let timer;
+        function enterEvent(e) {
+            if (timer) {
+                clearTimeout(timer);
+            }
+
+            if (e.key == "Enter") {
+                search();
+            } else {
+                timer = setTimeout(search, 1000);
+            }
+        }
+    </script>
+</body>
+
+</html>
