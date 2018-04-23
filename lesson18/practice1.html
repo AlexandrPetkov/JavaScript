@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div style="width:20px; height: 20px; position:absolute; left:0px; top: 0px; background: red" onclick="move(event)">
+
+    </div>
+
+    <script>
+        var d;
+        var width = window.innerWidth;
+        var height = window.innerHeight;
+        var count = 200;
+        var stepX;
+        var stepY;
+        var posx = 0;
+        var posy = 0;
+
+        
+
+        function move(e) {
+            d = e.target;
+            stepX = (width - d.clientWidth)/count;
+            stepY = (height - d.clientHeight)/count;
+            step();
+        }
+
+        function step() {
+            posx += stepX;
+            posy += stepY;
+
+            if(count > 0) {
+            d.style.left = posx + 'px';
+            d.style.top = posy + 'px';
+            count--;
+            requestAnimationFrame(step);
+            }
+        }
+    </script>
+</body>
+</html>
