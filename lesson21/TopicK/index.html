@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <textarea style="height: 300px; width: 300px"></textarea>
+    <script>
+
+        // ajax json type request
+        $.ajax("data.json",
+        {
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+            $('textarea').val(data.result.message);
+            }
+        });
+
+        // ajax text type request and parse to JSON
+        $.ajax("data.json",
+        {
+            type: 'GET',
+            dataType: 'text',
+            success: function(data) {
+            $('textarea').val($('textarea').val() + " " + JSON.parse(data).result.message);
+            }
+        });
+
+        //native request (without AJAX)
+        function f () {
+            if(this.status === 200) {
+                document.getElementsByTagName('textarea')[0].value += JSON.parse(this.responseText).result.message + " dsafads";
+            } else {
+                //do something if error
+            }
+        }
+        let oReq = new XMLHttpRequest();
+        oReq.onload = f;
+        oReq.open("get", "data.json", true);
+        oReq.send();
+    </script>
+</body>
+</html>
