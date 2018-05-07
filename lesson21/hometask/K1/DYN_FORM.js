@@ -1,36 +1,30 @@
-var form = document.createElement("form");
-form.action = "http://fe.it-academy.by/TestForm.php";
+var form1 = document.createElement("form");
+form1.action = "http://fe.it-academy.by/TestForm.php";
 
-function loadSiteData() {
-    $.ajax(
-        "site_data.json",
-        {
-            type: "GET",
-            dataType: "jsonp",
-            success: fillForm
-        }
+var form2 = document.createElement("form");
+form2.action = "http://fe.it-academy.by/TestForm.php";
+
+document.body.appendChild(form1);
+document.body.appendChild(createHr());
+document.body.appendChild(form2);
+
+loadData(form1,"site_data.json");
+loadData(form2, "user_data.json");
+
+function loadData(form, dataFile) {
+    $.ajax(dataFile,
+        {type: "GET",dataType: "json",success: result => fillForm(form, result.components)}
     );
 }
 
-loadSiteData();
-
-//document.body.appendChild(fillForm(form1, formDef1));
-
-document.body.appendChild(createHr());
-
-//var form2 = document.createElement("form");
-//form2.action = "http://fe.it-academy.by/TestForm.php";
-//document.body.appendChild(fillForm(form2, formDef2));
-
-
-function fillForm(array) {
+function fillForm(form, array) {
     var table = document.createElement("table");
     var tbody = document.createElement("tbody");
 
     form.appendChild(table);
     table.appendChild(tbody);
 
-    for (let i = 0; i < array.size(); i++) {
+    for (let i = 0; i < array.length; i++) {
         var tr = document.createElement("tr");
         var element;
 
