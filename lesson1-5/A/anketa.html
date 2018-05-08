@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Anketa</title>
+</head>
+
+<body>
+    <script>
+        function isValidAge(age) {
+            if (isNaN(Number(age)))
+                return false;
+            
+            if (age > 0 && age < 90)
+            return true;
+        }
+
+        function calculateRetire(age, isMale) {
+            if (!isValidAge(age)) {
+                return "Неизвестно";
+            }
+
+            if (age >= 61 || (age >=56 && !isMale)) {
+                return "да";
+            } 
+            
+            return "нет";
+        }
+
+        function validateName (name) {
+            if (!name || name === null) {
+                return "Неизвестно"
+            }
+
+            return name
+        }
+
+        var surname = prompt("Введите вашу фамилию");
+        var name = prompt("Введите ваше имя");
+        var secondName = prompt("Введите ваше отчетсво");
+        var age = prompt("Введите ваш возраст");
+        var isMale = confirm("ваш пол - мужской?");
+        alert(`ваше ФИО: ${validateName(surname)} ${validateName(name)} ${validateName(secondName)}\n` +
+        `ваш возраст в годах: ${isValidAge(age) ? age : "Не определен"}\n` +
+        `ваш возраст в днях: ${isValidAge(age) ? age * 365 : "Не определен"}\n` +
+        `через 5 лет вам будет: ${isValidAge(age) ? +age + 5 : "Не определен"}\n` + 
+        `ваш пол: ${isMale ? "мужской" : 'женский'}\n` + 
+        `вы на пенсии: ${calculateRetire(age, isMale)}`);
+    </script>
+</body>
+
+</html>
