@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX test</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
+    <script id="success" type="text/x-jquery-tmpl">
+        {{each $data}}
+        <textarea>${message}</textarea>
+        {{/each}}
+    </script>
+    <script id="error" type="text/x-jquery-tmpl">
+        <div>${message}</div>
+    </script>
+</head>
+<body>
+
+<script>
+  fetch("data.json")
+    .then(x => {
+      if (x.ok) return x.json();
+      else {
+        throw new Error(x.status + " " + x.statusText);
+      }
+    })
+    .then(json => $('#success').tmpl(json.result).appendTo("body"))
+	.catch(e => $("#error").tmpl(e).appendTo("body"))
+</script>
+</body>
+</html>
