@@ -4,17 +4,16 @@ class TAJAXStorage {
     }
 
     addValue(key, value) {
-        $.ajax( {
+        return $.ajax( {
             url : this.url, type : 'POST', cache : false, dataType:'json',
             data : { f : 'INSERT', n : `petkov_${key}`, v : value }
         });
     }
 
     getValue(key) {
-        $.ajax( {
+        return $.ajax( {
             url : this.url, type : 'POST', cache : false, dataType:'json',
-            data : { f : 'READ', n : `petkov_${key}`},
-            success: function(result) {return result}
+            data : { f : 'READ', n : `petkov_${key}`}
         });
     }
 
