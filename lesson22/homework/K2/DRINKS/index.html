@@ -7,6 +7,7 @@
     <title>Document</title>
     <script src="http://fe.it-academy.by/JQ/jquery.js"></script>
     <script src="AJAXStorage.js"></script>
+    <script src="../../../../lesson1-5/C2/DRINKS/HashStorage.js"></script>
 </head>
 <body>
     <button onclick="newDrink()">Ввод информации о напитке</button>
@@ -16,7 +17,8 @@
     <br>
     <div></div>
     <script>
-        var storage = new TAJAXStorage();
+        var ajaxStorage = new TAJAXStorage();
+        var storage = new HashStorage();
         var div = document.getElementsByTagName('div')[0];
 
         function newDrink(){
@@ -27,16 +29,30 @@
             drink.isAlcohol = confirm("Is it alcohol?");
 
             storage.addValue(drink.name, {receipt: drink.receipt, isAlco: drink.isAlcohol});
+
+            ajaxStorage.addValue(drink.name, {"receipt": drink.receipt, "isAlco": drink.isAlcohol})
+            .then (result => {
+                if (result.error) {
+                    div.textContent = result.error;
+                }
+            });
         }
 
         function showDrinkInfo (){
             let key = prompt("Enter drink name");
-            let drink = storage.getValue(key);
-            if(drink) {
-                div.innerHTML = `<div>напиток: <strong>${key}</strong></div><div>алкогольный: <strong>${drink.isAlco? "да" : "нет"}</strong></div><div>рецепт приготовления:</div> <div><strong>${drink.receipt}</strong></div>`;
+            ajaxStorage.getValue(key)
+            .then((result) => {
+                console.log(result);
+                if(result.result != "") {
+                    let drink = JSON.parse(result.result);
+                div.innerHTML = `<div>напиток: <strong>${key}</strong></div><div>алкогольный: <strong>${drink.isAlco ? "да" : "нет"}</strong></div><div>рецепт приготовления:</div> <div><strong>${drink.receipt}</strong></div>`;
             } else {
                 div.textContent = "Такого напитка нет";
             }
+            })
+            .catch(e => {
+                div.textContent = "Что-то произошло с соединением";
+            });
         }
 
         function removeDrink(){
