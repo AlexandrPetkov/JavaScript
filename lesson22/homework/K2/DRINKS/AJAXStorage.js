@@ -4,32 +4,17 @@ class TAJAXStorage {
     }
 
     addValue(key, value) {
+        console.log(value);
         return $.ajax( {
-            url : this.url, type : 'POST', cache : false, dataType:'json',
-            data : { f : 'INSERT', n : `petkov_${key}`, v : value }
+            url : this.url, type : 'POST', cache : false,
+            data : { f : 'INSERT', n : `alex_${key}`, v : JSON.stringify(value) }
         });
     }
 
     getValue(key) {
         return $.ajax( {
             url : this.url, type : 'POST', cache : false, dataType:'json',
-            data : { f : 'READ', n : `petkov_${key}`}
+            data : { f : 'READ', n : `alex_${key}`}
         });
-    }
-
-    deleteValue(key) {
-        // $.ajax( {
-        //     url : this.url, type : 'POST', cache : false, dataType:'json',
-        //     data : { f : 'READ', n : `petkov_${key}`},
-        //     success: function(result) {return result}
-        // });
-    }
-
-    getKeys() {
-        // $.ajax( {
-        //     url : this.url, type : 'POST', cache : false, dataType:'json',
-        //     data : { f : 'READ', n : `petkov_${key}`},
-        //     success: function(result) {return result}
-        // });
     }
 }
