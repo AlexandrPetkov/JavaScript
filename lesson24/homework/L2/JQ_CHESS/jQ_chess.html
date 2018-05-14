@@ -11,7 +11,11 @@
 <body>
     <script>
 		prepareStartTable();
-		$('table tr td:even').css("background-color", "black");
+		$('table').find('tr:odd td:even, tr:even td:odd').css("background-color", "black")
+		.end().find('tr:first td, tr:last td, tr td:first-child, tr td:last-child').css("background-color", "#71DB60")
+		.end().find('tr:first td, tr:last td').css("height", "20px")
+		.end().find('tr td:first-child, tr td:last-child').css("width", "20px");
+
 
 		function prepareStartTable() {
 			let table = $('<table>');
