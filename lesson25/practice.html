@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+    
+</head>
+<body>
+    <form id="1">
+        <input type="text" name="im"/>
+    </form>
+    <script>
+        function ColorNameValidation(value,elem,args) {
+            if ( (value=='красный') || (value=='жёлтый') || (value=='зелёный') )
+                return true;
+            return false;
+        }
+
+        $.validator.addMethod('ColorName',ColorNameValidation,
+  'То что вы ввели - не имя цвета!');
+        
+        $('#1').validate({
+            rules: {
+                im: {
+                    required: true,
+                    ColorName: []
+                }
+            }
+        });
+
+
+    </script>
+</body>
+</html>
