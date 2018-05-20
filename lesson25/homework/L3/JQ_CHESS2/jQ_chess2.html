@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+</script>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>JQ_chess2</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+
+  table.CHESS
+  {
+    border-collapse: collapse;
+  }
+
+  /* любая клетка доски */
+  table.CHESS td
+  {
+    width: 50px;
+    height: 50px;
+    border: solid gray 1px;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  /* чёрная клетка доски */
+  table.CHESS td.BLACK
+  {
+    background-color: black;
+  }
+
+  /* клетка вертикального ободка */
+  table.CHESS td.VERT
+  {
+    background-color: lightgreen;
+    width: 20px;
+  }
+
+  /* клетка горизонтального ободка */
+  table.CHESS td.HORZ
+  {
+    background-color: lightgreen;
+    height: 20px;
+  }
+
+</style>
+
+<div id="IChess"></div>
+
+<script>
+  var tableCell=$('<td></td>');
+  var tableRow=$('<tr></tr>');
+  var table=$('<table></table>');
+
+  // 1. Внутри имеющегося тега div скомпоновать шахматную доску, в точности такую как в jQ_chess.html.
+  // Новых html-элементов не создавать, использовать только уже созданные TableCell, TableRow, Table, клонируя их по мере необходимости.
+  for (let i = 0; i < 10; i++) {
+    tableRow.append(tableCell.clone(false));
+  }
+
+  for (let i = 0; i < 10; i++) {
+    table.append(tableRow.clone());
+  }
+
+  table.addClass('CHESS');
+  $('#IChess').append(table);
+
+
+  // 2. Одним вызовом jQuery расставить:
+  // клеткам, которые должны быть чёрными - класс BLACK
+  // левой и правой колонке клеток - класс VERT
+  // верхней и нижней строке клеток - класс HORZ
+  table.find('tr:even td:odd, tr:odd td:even').addClass('BLACK')
+  .end().find('tr td:first-child, tr td:last-child').addClass('VERT')
+  .end().find('tr:first td, tr:last td').addClass('HORZ');
+
+
+  // 3. В клетки ободка расставить подписи - по горизонтали слева направо от a до h, по вертикали снизу вверх от 1 до 8.
+  // Расстановка подписей на каждой грани должна производиться одним вызовом функции text либо html,
+  // а не одним вызовом для каждой клеточки отдельно; т.е. должно быть сформировано 4 набора и 4 раза вызвана функция text/html.
+  $('tr:gt(0):lt(8) td:first-child').html((index) => {
+      return `<a class="label">${8-index}<a>`;
+  });
+
+  $('tr:gt(0):lt(8) td:last-child').html((index) => {
+      return `<a class="label">${8-index}<a>`;
+  });
+
+  let chars = "abcdefgh";
+  $('tr:first td:gt(0):lt(8)').html((index) => {
+    return `<a class="label">${chars[index]}<a>`;
+  });
+
+  $('tr:last td:gt(0):lt(8)').html((index) => {
+      return `<a class="label">${chars[index]}<a>`;
+  });
+
+  // 4. Все внесённые подписи и все чёрные клетки сделать прозрачными. Зелёный фон у ободков должен остаться.
+  $('[class=BLACK]').fadeTo(0,0);
+  $(".label").css("opacity", 0);
+
+  // 5. Медленно (за 2 сек) проявить чёрные клетки, затем медленно (за 2 сек) проявить подписи.
+  $('[class=BLACK]').fadeTo(2000, 1, () => {
+    $('.label').animate({opacity: 1}, 2000);
+  });
+  
+</script>
+<div id="wt-sky-root"></div></body></html>
