@@ -1,0 +1,10 @@
+<script id="tableTemplate" type="text/x-jquery-tmpl">
+    <tbody>
+        {{each $data.result}}
+            {{if ($index)%4 == 0}}
+                <tr>
+            {{/if}}
+            {{tmpl($value) "#elementTemplate"}}
+        {{/each}}
+    </tbody>
+</script>

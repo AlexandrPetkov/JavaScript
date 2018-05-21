@@ -1,8 +1,72 @@
-[
-    {
-        "imageUrl": "/Examples/Beatles/Abbey_Road.jpg",
-        "AlbumName": "sadfs",
-        "year": 1969,
-        "rank": 14
-    }
-]
+{
+    "result": [
+        {
+            "imageUrl": "Please_Please_Me.jpg",
+            "AlbumName": "Please Please Me",
+            "year": 1963,
+            "rank": 39
+        },
+        {
+            "imageUrl": "With_the_Beatles.jpg",
+            "AlbumName": "With The Beatles",
+            "year": 1963,
+            "rank": 59
+        },
+        {
+            "imageUrl": "A_Hard_Day's_Night.jpg",
+            "AlbumName": "A Hard Day's night",
+            "year": 1964,
+            "rank": 307
+        },
+        {
+            "imageUrl": "Beatles_for_Sale.jpeg",
+            "AlbumName": "Beatles for Sale",
+            "year": 1964
+        },
+        {
+            "imageUrl": "Help!.jpg",
+            "AlbumName": "Help!",
+            "year": 1965,
+            "rank": 331
+        },
+        {
+            "imageUrl": "Rubber_Soul.jpg",
+            "AlbumName": "Rubber Soul",
+            "year": 1965,
+            "rank": 5
+        },
+        {
+            "imageUrl": "Revolver.jpg",
+            "AlbumName": "Revolver",
+            "year": 1966
+        },
+        {
+            "imageUrl": "Sgt._Pepper's_Lonely_Hearts_Club_Band.jpg",
+            "AlbumName": "Sgt. Pepper's lonely hearts club band",
+            "year": 1967,
+            "rank": 1
+        },
+        {
+            "imageUrl": "Magical_Mystery_Tour.jpg",
+            "AlbumName": "Magical Mystery Tour",
+            "year": 1967
+        },
+        {
+            "imageUrl": "The_White_Album.png",
+            "AlbumName": "The Beatles (White Album)",
+            "year": 1968,
+            "rank": 10
+        },
+        {
+            "imageUrl": "Yellow_Submarine.jpg",
+            "AlbumName": "Yellow Submarine",
+            "year": 1969
+        },
+        {
+            "imageUrl": "Abbey_Road.jpg",
+            "AlbumName": "Abbey Road",
+            "year": 1969,
+            "rank": 14
+        }
+    ]
+}

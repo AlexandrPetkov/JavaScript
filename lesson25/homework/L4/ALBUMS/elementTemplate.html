@@ -1,0 +1,10 @@
+<script id="elementTemplate" type="text/x-jquery-tmpl">
+    <td>
+        <img src="http://fe.it-academy.by/Examples/Beatles/${imageUrl}" alt="${AlbumName}" title="${AlbumName}">
+        <div class="SName">Название: <span>${AlbumName}</span></div>
+        <div class="SYear">Год выхода: <span>${year}</span></div>
+        {{if rank}}
+            <div class="SPlace">RollingStone: <span>${rank}</span></div>
+        {{/if}}
+    </td>
+</script>
